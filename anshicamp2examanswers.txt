@@ -1,0 +1,157 @@
+create table vehicle4(vehicle_id int primary key,carname varchar(30),category varchar(20) ,sub_category varchar(20) ,
+make varchar(20) , model varchar(20) ,reg_no varchar(50) ,color varchar(20) ,fuel_type varchar(20) ,
+rent_per_km int,engine_type varchar(20) ,tax_rate int);
+ 
+drop table vehicles
+
+
+INSERT INTO Vehicle4 (vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (100,'toyota','SUV', 'Corporate', 'Toyota', 'Fortuner','kl66', 'Black', 'Diesel', 15, 'Diesel', 18);
+
+
+INSERT INTO Vehicle4 (vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (333,'tiago','SUV', 'Corporate', 'Toyota-supra', 'Fortuner','kl63', 'Black', 'Diesel', 15, 'Diesel', 48);
+
+delete from vehicle3 where vehicle_id=300;
+
+
+drop table trips
+drop table taxex
+
+
+INSERT INTO Vehicle4 (vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (101,'aaa','4wd', 'Corporate', 'xvxb', 'santro','kl67', 'Blue', 'petrol', 16, 'petrol', 19);
+
+
+
+INSERT INTO Vehicle4 (vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (102,'bbb','muv', 'personal', 'wert', 'alto','tn68', 'red', 'Diesel', 17, 'Diesel', 20);
+
+
+
+INSERT INTO Vehicle4(vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (103,'ccc','luxury', 'personal', 'uesk', 'benz','kk69', 'white', 'petrol', 18, 'petrol', 21);
+
+INSERT INTO Vehicle4 (vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (169,'ddd','SUV', 'Corporate', 'Toyota',null,'kl66', 'Black', 'Diesel', 15, 'Diesel', 18);
+
+INSERT INTO Vehicle4 (vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (105,'bbMMM','muv', 'Corporate', 'wert', 'qualis','tn68', 'red', 'Diesel', 17, 'Diesel', 20);
+
+INSERT INTO Vehicle4(vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (233,'xxx','muv', 'Personal', 'wert', 'dukti','KL-2021', 'red', 'Diesel', 17, 'Diesel', 21);
+INSERT INTO Vehicle4 (vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (240,'bqb','muv', 'Personal', 'wert',null,'KL-2021', 'red', 'Diesel', 17, 'Diesel', 30);
+
+
+INSERT INTO Vehicle4 (vehicle_id,carname,category,sub_category, make, model, reg_no, color, fuel_type, rent_per_km, engine_type, tax_rate)
+VALUES (218,'bqm','muv', 'Personal', 'werit', null ,'KL-2021', 'red', 'Diesel', 17, 'Diesel', 31);
+
+
+
+
+
+
+
+drop table trips2
+CREATE TABLE Trips2(
+    trip_id INT PRIMARY KEY,
+    vehicle_id INT,
+    distance_travelled DECIMAL(10, 2) NOT NULL,
+   
+    FOREIGN KEY (vehicle_id) REFERENCES Vehicle4(vehicle_id)
+);
+
+
+INSERT INTO Trips2 (trip_id,vehicle_id, distance_travelled)
+VALUES (1000, 100,2000);
+
+INSERT INTO Trips2 (trip_id,vehicle_id, distance_travelled)
+VALUES (1001, 101,3000);
+
+INSERT INTO Trips2 (trip_id,vehicle_id, distance_travelled)
+VALUES (1002, 102,4000);
+
+INSERT INTO Trips2 (trip_id,vehicle_id, distance_travelled)
+VALUES (1003, 103,5000);
+
+drop table taxe2
+CREATE TABLE Taxe2 (
+    tax_id INT PRIMARY key ,
+    vehicle_id INT,
+    tax_rate DECIMAL(5, 2) NOT NULL,
+    tax_amount DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (vehicle_id) REFERENCES Vehicle4(vehicle_id)
+);
+
+insert into taxe2(tax_id,vehicle_id,tax_rate,tax_amount)values(10,100,500,5000)
+insert into taxe2(tax_id,vehicle_id,tax_rate,tax_amount)values(11,101,600,6000)
+insert into taxe2(tax_id,vehicle_id,tax_rate,tax_amount)values(12,102,700,7000)
+insert into taxe2(tax_id,vehicle_id,tax_rate,tax_amount)values(13,103,800,8000)
+
+SELECT carname
+FROM Vehicle4
+WHERE category = 'SUV' 
+AND sub_category = 'Corporate';
+
+SELECT carname, category 
+FROM Vehicle4
+WHERE reg_no LIKE 'kl%';
+
+
+SELECT carname, model, rent_per_km, (rent_per_km * 30) AS "30_day_rent"
+FROM Vehicle4
+WHERE rent_per_km < 3000;
+
+
+SELECT category, MAX(rent_per_km) AS max_rent
+FROM Vehicle4
+WHERE sub_category = 'Corporate'
+GROUP BY category;
+
+
+!
+
+
+SELECT carname 
+FROM Vehicle4
+WHERE model IS NULL 
+ORDER BY carname DESC;
+
+
+!
+
+SELECT carname, reg_no 
+FROM Vehicle4
+WHERE color = 'red' 
+AND sub_category = 'Corporate'
+ORDER BY reg_no;
+
+!
+! ok
+
+SELECT carname, category, rent_per_km 
+FROM Vehicle4
+WHERE sub_category = 'Corporate';
+
+
+
+
+!ok
+
+SELECT carname 
+FROM Vehicle4
+WHERE sub_category = 'Personal' 
+  AND rent_per_km IN (
+    SELECT rent_per_km 
+    FROM Vehicle4
+    WHERE reg_no = 'KL-2021'
+);
+
+
+
+
+
+
+
+
